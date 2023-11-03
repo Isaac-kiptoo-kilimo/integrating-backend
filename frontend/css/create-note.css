@@ -21,9 +21,29 @@
   justify-content: center;
   background: #f0f2f5;
 }
+.create-note-form{
+  width: 100%;
+  background-color: #3ba626;
+}
 
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-35deg);
+  height: 40px;
+  width: 40px;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-top: 40px;
+  transition: 0.2s ease;
+}
 
-
+.form-footer :hover .arrow  {
+  background: #000;
+  color: #fff; 
+}
 
 
 form {
