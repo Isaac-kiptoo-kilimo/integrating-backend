@@ -41,9 +41,7 @@ function getNotesController(req, res) {
         try {
             const pool = yield mssql_1.default.connect(db_1.dbConfig);
             const users = (yield pool.request().execute('fetchAllNotes')).recordset;
-            return res.status(200).json({
-                users: users
-            });
+            return res.status(200).json(users);
         }
         catch (error) {
             return res.json({

@@ -10,28 +10,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const notes = document.getElementById('notes');
 const url_ = 'http://localhost:5000/notes/notes/';
-// notes.style.backgroundColor='red'
 function fetchNotes(url) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = yield fetch(url);
+            console.log(data);
+            if (!data.ok) {
+                throw new Error(`Request failed with status: ${data.status}`);
+            }
             const response = yield data.json();
-            response.forEach((note) => {
-                notes.innerHTML += `
-        <div class="card-item">
-          <img src="images/developer.jpg" alt="Card Image">
-          <span class="developer">${note.title}</span>
-          <h3>${note.content}.</h3>
-          <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-          </div>
-        </div>
-      `;
-            });
+            // console.log(response);
+            return response;
         }
         catch (error) {
             console.error('Error fetching notes:', error);
+            throw error;
         }
     });
 }
-fetchNotes(url_);
+function displayNotes(notesArray) {
+    console.log(notesArray);
+    notesArray.forEach((note) => {
+        notes.innerHTML += `
+      <div class="card-item">
+      <h2>This is your Note</h2>
+        <span class="developer">${note.title}</span>
+        <h3>${note.content}.</h3>
+        <h3>${note.createdAt}.</h3>
+        <div class="arrow">
+          <i class="fas fa-arrow-right card-icon"></i>
+        </div>
+      </div>
+    `;
+    });
+}
+fetchNotes(url_)
+    .then((response) => {
+    displayNotes(response);
+})
+    .catch((error) => {
+    console.log(error);
+});

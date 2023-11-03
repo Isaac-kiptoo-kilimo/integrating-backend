@@ -40,9 +40,9 @@ export async function getNotesController(req: Request, res:Response){
         
             const users=(await pool.request().execute('fetchAllNotes')).recordset
         
-            return res.status(200).json({
-                users:users
-            })
+            return res.status(200).json(
+                users
+            )
           }catch(error){
         return res.json({
                 error:error
