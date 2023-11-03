@@ -9,22 +9,20 @@
   </head>
   <body>
     <div class="container flex">
-      <div class="facebook-page flex">
-        <div class="text">
-          <h1>Create Note</h1>
-        </div>
-        <form class="create-note-form">
-          <input type="text" placeholder="Title" required>
+      <div class=" flex">
+        <form class="create-note-form" id="create-note-form">
+          <h2 class="form-heading">PROJECT PLANNING NOTEBOOK</h2>
+          <input type="text" placeholder="Title" id="title" required>
           <textarea name="content" id="content" cols="30" rows="10" placeholder="content"></textarea>
           <div class="link">
             <button type="submit" class="login">Create Note</button>
           </div>
           <hr>
-          <!-- <div class="button">
-            <a href="#">Create new account</a>
-          </div> -->
+         <div>
+          "Notebooks are the canvas of the mind, where ideas come to life and thoughts find their voice."</div>
         </form>
       </div>
     </div>
+    <script src="./dist/addnote.js"></script>
   </body>
 </html>

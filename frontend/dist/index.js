@@ -33,7 +33,7 @@ function displayNotes(notesArray) {
     notesArray.forEach((note) => {
         notes.innerHTML += `
       <div class="card-item">
-      <h2>This is your Note</h2>
+      <h2>This is your ${note.title} Note</h2>
         <span class="developer">${note.title}</span>
         <h3>${note.content}.</h3>
         <h3>${note.createdAt}.</h3>
