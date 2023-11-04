@@ -1,0 +1,10 @@
+
+CREATE OR ALTER PROCEDURE getSingleNote (@id VARCHAR(100))
+
+AS BEGIN
+
+  SELECT *  FROM notes  WHERE id = @id;
+
+END;
+
+DROP PROCEDURE IF EXISTS getSingleNote;

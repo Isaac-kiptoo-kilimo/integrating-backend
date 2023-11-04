@@ -5,6 +5,7 @@ import Connection from "../dphelpers/dphelper";
 import { v4 } from 'uuid'
 import { formateDates } from "../utils/formatDates";
 import { dbConfig } from "../config/db";
+import { createNoteSchema } from "../validators/noteValidators";
 const dbhelpers=new Connection;
 
 
@@ -14,10 +15,17 @@ export function addNoteController(req: Request, res:Response){
 
 
     try{
-      const { title,content}=req.body
       const id=v4()
+
       const createdAt = formateDates();
+
+      const { title,content}=req.body
+
+      const {error} = createNoteSchema.validate(req.body)
      
+      if(error){
+            return res.status(422).json(error)
+        }
   
       let result=dbhelpers.execute('addNote',{
           id,title,content,createdAt
@@ -38,10 +46,10 @@ export async function getNotesController(req: Request, res:Response){
       try{
             const pool=await mssql.connect(dbConfig)
         
-            const users=(await pool.request().execute('fetchAllNotes')).recordset
+            const notes=(await pool.request().execute('fetchAllNotes')).recordset
         
             return res.status(200).json(
-                users
+                notes
             )
           }catch(error){
         return res.json({
@@ -49,76 +57,76 @@ export async function getNotesController(req: Request, res:Response){
             })
           }
       
-    
-      
       
 }
-
-
 
 
 
 export const  getOneNote=async (req:Request,res:Response)=>{
       try{
 
-            const {userID}=req.params;
-            console.log(userID);
-            
-            const queryString=`SELECT * FROM notes WHERE note_id='${userID}'`
-            // const result=await new_query(queryString)
-            // console.log(result.recordset);
-            
+            const {noteID}=req.params;
 
-            // res.json(result.recordset[0])
+            console.log(noteID);
+            const data = {
+                  id: noteID,
+                };
+                const note = await dbhelpers.execute('getSingleNote', data);
+           return res.json(note.recordset)
+            
+          
 
       }catch(err){
             console.log(err)
 
       }
 
-
-
-
 }
 
-
-
-export function getSingleNoteController(req:Request, res:Response ){
-      let {noteID} = req.params;
-      let parsedID = parseInt(noteID)
-      // let note = getSingleNote(parsedID);
-
-      // res.json(note)
-}
 
 export async function updateNoteController(req:Request, res:Response){
     let { noteID } = req.params;
-    let parsedID = parseInt(noteID)
     let updatedNote = req.body;
 
-//     let result = updateNote(parsedID, updatedNote);
-//     if (await result) {
-//           return res.json({
-//                 id: parsedID,
-//                 success: true
-//           })
-//     }
-//     return res.json({
-//           success: false
-//     })
+    try{
+      const { title, content } = req.body;
+      let createdAt=formateDates()
+
+      const data = { id:noteID,title,content,createdAt };
+
+      let result=await dbhelpers.execute('updateNote',data)
+      return res.status(200).json({
+            message: "Note updated successfully"
+          });
+
+    }catch(error){
+      console.log(error)
+      return res.status(500).json({
+      message: "Error updating the note"
+    })
+
+
+}
 }
 
-export function deleteNoteController(req:Request, res:Response){
-      let {noteID} = req.params;
-      let parsedID = parseInt(noteID);
-
-      // let results = deleteNote(parsedID);
-
-      // if(results !== null){
-      //       res.send(`Note with id:${noteID} on index: ${results} deleted`);
-      // }else{
-      //       res.send("Note not found")
-      // }
+export async function deleteNoteController(req:Request, res:Response){
+      try {
+            const { noteID } = req.params;
+          
+            const data = {
+              id: noteID
+            };
+          
+           let result= await dbhelpers.execute('deleteNote', data);
+            return res.status(201).json({
+              message: "Deleted successfully"
+            });
+          } catch (error) {
+            return res.status(500).json({
+              message: "Error deleting the note"
+            });
+          }
+          
 }
 
 

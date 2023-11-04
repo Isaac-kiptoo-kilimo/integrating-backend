@@ -2,6 +2,7 @@ import mssql from 'mssql'
 import { dbConfig } from '../config/db'
 
 export default class Connection{
+    [x: string]: any;
 
     private pool: Promise <mssql.ConnectionPool>
 

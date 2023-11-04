@@ -1,0 +1,11 @@
+
+CREATE PROCEDURE deleteNote (@id VARCHAR(100))
+
+AS BEGIN
+  DELETE  FROM Notes  WHERE id = @id;
+END;
+
+DROP PROCEDURE IF EXISTS deleteNote;
+
+
+

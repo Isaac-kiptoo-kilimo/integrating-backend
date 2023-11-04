@@ -1,3 +1,4 @@
+# creating a note
 POST http://localhost:5000/notes
 Content-Type: application/json
 
@@ -6,5 +7,29 @@ Content-Type: application/json
     "content": "I will be coding every morning"
 }
 
+# fetching all notes
 ###
-GET http://localhost:5000/notes/notes/
+GET http://localhost:5000/notes/notes
+
+
+
+# fetching a single note
+###
+GET http://localhost:5000/notes/3a1d9077-413a-4402-b1dc-bb60a2adc844/
+
+
+
+# Updating a note
+###
+PUT http://localhost:5000/notes/3a1d9077-413a-4402-b1dc-bb60a2adc844/
+Content-Type: application/json
+
+{
+    "title": "Watching a Movie",
+    "content": "I will be watching the new series in the town"
+}
+
+
+# Deleting a note
+###
+DELETE http://localhost:5000/notes/65c594dc-0893-47b1-aa96-9e34ade8761d/
