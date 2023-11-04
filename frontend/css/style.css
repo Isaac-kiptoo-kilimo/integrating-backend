@@ -362,7 +362,10 @@ form input:focus {
   outline: none;
   border-color: #1877f2;
 }
-
+textarea{
+  padding: 10px;
+  font-size: 18px;
+}
 ::placeholder {
   color: #777;
   font-size: 1.063rem;
