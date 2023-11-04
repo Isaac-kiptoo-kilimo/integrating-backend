@@ -32,4 +32,4 @@ Content-Type: application/json
 
 # Deleting a note
 ###
-DELETE http://localhost:5000/notes/65c594dc-0893-47b1-aa96-9e34ade8761d/
+DELETE http://localhost:5000/notes/a0bafb90-edcb-4553-9a46-0f1aaf8e0404/
